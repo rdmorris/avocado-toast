@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Ledger — How the Middle-Class Life Was Legislated Away, 1945–2026</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1: #fcfcfb;
+    --plane: #f4f3ef;
+    --ink: #0b0b0b;
+    --ink-2: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --rule: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --s1: #2a78d6;
+    --s2: #eb6834;
+    --crit: #d03b3b;
+    --accent-wash: #f0efec;
+    --rep: #c0392b;
+    --dem: #2a78d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1: #1a1a19;
+      --plane: #0d0d0d;
+      --ink: #ffffff;
+      --ink-2: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --rule: #383835;
+      --border: rgba(255,255,255,0.10);
+      --s1: #3987e5;
+      --s2: #d95926;
+      --crit: #d03b3b;
+      --accent-wash: #232322;
+      --rep: #e66767;
+      --dem: #3987e5;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--plane);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 20px 96px; }
+
+  header {
+    padding: 64px 0 40px;
+    border-bottom: 3px solid var(--ink);
+    margin-bottom: 44px;
+  }
+  .kicker {
+    font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; margin: 0 0 14px;
+  }
+  h1 { font-size: clamp(30px, 5.2vw, 50px); line-height: 1.08; margin: 0 0 18px; letter-spacing: -0.02em; font-weight: 700; }
+  .standfirst { font-size: 19px; color: var(--ink-2); margin: 0; max-width: 46em; }
+
+  h2 {
+    font-size: 13px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--muted); font-weight: 700;
+    margin: 64px 0 6px; padding-bottom: 10px; border-bottom: 1px solid var(--rule);
+  }
+  h3 { font-size: 24px; margin: 20px 0 10px; line-height: 1.25; letter-spacing: -0.01em; }
+  h4 { font-size: 17px; margin: 30px 0 8px; }
+  p { margin: 0 0 16px; max-width: 46em; }
+  a { color: inherit; }
+
+  .lede { font-size: 18px; }
+
+  /* ---- stat tiles ---- */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 12px; margin: 28px 0 8px; }
+  .tile {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 18px 18px 16px;
+  }
+  .tile .v { font-size: 38px; font-weight: 700; line-height: 1; letter-spacing: -0.03em; display: block; }
+  .tile .l { font-size: 13px; color: var(--ink-2); margin-top: 9px; display: block; line-height: 1.4; }
+  .tile .src { font-size: 11px; color: var(--muted); margin-top: 8px; display: block; }
+
+  /* ---- chart ---- */
+  figure { margin: 30px 0; background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 22px; }
+  figcaption { font-size: 13px; color: var(--muted); margin-top: 14px; }
+  .fig-title { font-size: 16px; font-weight: 650; margin: 0 0 4px; }
+  .fig-sub { font-size: 13px; color: var(--ink-2); margin: 0 0 20px; }
+  .barrow { display: grid; grid-template-columns: 168px 1fr; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .barrow .name { font-size: 14px; color: var(--ink); text-align: right; }
+  .bartrack { position: relative; height: 30px; }
+  .bar { height: 30px; border-radius: 0 4px 4px 0; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: #fff; font-size: 14px; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .legend { display: flex; gap: 18px; font-size: 13px; color: var(--ink-2); margin-top: 4px; flex-wrap: wrap; }
+  .swatch { width: 11px; height: 11px; border-radius: 2px; display: inline-block; margin-right: 6px; vertical-align: -1px; }
+
+  /* ---- tables ---- */
+  .tablewrap { overflow-x: auto; margin: 22px 0 8px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-1); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 720px; }
+  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+  th { font-size: 11px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); font-weight: 700; background: var(--accent-wash); border-bottom: 1px solid var(--rule); position: sticky; top: 0; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.yr { font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .R { color: var(--rep); font-weight: 700; }
+  .D { color: var(--dem); font-weight: 700; }
+  .vote { font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 13px; color: var(--ink-2); }
+
+  /* ---- callout ---- */
+  .callout {
+    border-left: 4px solid var(--s2); background: var(--surface-1);
+    padding: 18px 20px; margin: 26px 0; border-radius: 0 8px 8px 0;
+    border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout strong { font-weight: 700; }
+
+  .verdict {
+    background: var(--ink); color: var(--plane); padding: 30px 32px; border-radius: 12px; margin: 34px 0;
+  }
+  .verdict h3 { margin-top: 0; color: var(--plane); }
+  .verdict p { color: var(--plane); opacity: .92; }
+  .verdict p:last-child { margin-bottom: 0; }
+
+  ul, ol { max-width: 46em; padding-left: 22px; }
+  li { margin-bottom: 9px; }
+
+  .sources { font-size: 13px; color: var(--ink-2); }
+  .sources li { margin-bottom: 6px; }
+
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); }
+
+  @media print {
+    body { background: #fff; }
+    .tile, figure, .tablewrap { break-inside: avoid; }
+    h2 { break-after: avoid; }
+  }
+  @media (max-width: 620px) {
+    .barrow { grid-template-columns: 1fr; gap: 4px; }
+    .barrow .name { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">A legislative ledger · 1945–2026</p>
+  <h1>It wasn't the avocado toast.<br>It was a paper trail.</h1>
+  <p class="standfirst">Between 1945 and 2026, Congress, administrations of both parties, and a line of Supreme Court decisions rewrote the rules that once split America's productivity gains with the people who produced them. Here is what was passed, when, by whom, and with whose votes.</p>
+</header>
+
+<h2>I. The two eras</h2>
+
+<h3>Then: 1945–1979</h3>
+<p class="lede">Productivity and pay moved together. When American workers produced more, they were paid more — not out of corporate generosity, but because the tax code, labor law, and antitrust enforcement of that period made it the path of least resistance. More than a third of private-sector workers carried a union card at the 1945 peak, and still roughly a quarter at the end of the 1970s. The top marginal tax rate never fell below 70%. One income bought a house.</p>
+
+<h3>Now: 1979–2026</h3>
+<p class="lede">The two lines separated and never rejoined. Since 1979, worker productivity has grown <strong>93.2%</strong>. Pay for the typical worker has grown <strong>33.7%</strong>. That gap is not a rounding error or a statistical artifact — the 59-point spread is roughly two-thirds of all the productivity growth American workers generated over two generations, and it went somewhere other than their paychecks.</p>
+
+<figure>
+  <p class="fig-title">Productivity grew. Pay didn't follow.</p>
+  <p class="fig-sub">Cumulative growth since 1979, inflation-adjusted, through Q1 2026</p>
+
+  <div class="barrow">
+    <div class="name">Worker productivity</div>
+    <div class="bartrack"><div class="bar" style="width:100%; background:var(--s1);">+93.2%</div></div>
+  </div>
+  <div class="barrow">
+    <div class="name">Typical worker's pay</div>
+    <div class="bartrack"><div class="bar" style="width:36.2%; background:var(--s2);">+33.7%</div></div>
+  </div>
+
+  <div class="legend">
+    <span><span class="swatch" style="background:var(--s1)"></span>Productivity</span>
+    <span><span class="swatch" style="background:var(--s2)"></span>Typical worker pay</span>
+  </div>
+  <figcaption>Source: Economic Policy Institute, Productivity–Pay Gap, updated through Q1 2026. Bars are scaled to the larger value.</figcaption>
+</figure>
+
+<div class="tiles">
+  <div class="tile">
+    <span class="v">281×</span>
+    <span class="l">CEO pay relative to the typical worker in 2024. In 1965 it was 21×.</span>
+    <span class="src">EPI</span>
+  </div>
+  <div class="tile">
+    <span class="v">31.6%</span>
+    <span class="l">Share of all U.S. net worth held by the top 1%, Q1 2026.</span>
+    <span class="src">Federal Reserve</span>
+  </div>
+  <div class="tile">
+    <span class="v">2.5%</span>
+    <span class="l">Share of all U.S. net worth held by the bottom 50% — half the country.</span>
+    <span class="src">Federal Reserve</span>
+  </div>
+  <div class="tile">
+    <span class="v">~5×</span>
+    <span class="l">Median home price as a multiple of median household income in 2025 — near the record high of 5.6 set in 2022. It was about 3× in 2000.</span>
+    <span class="src">Harvard JCHS</span>
+  </div>
+  <div class="tile">
+    <span class="v">$7.25</span>
+    <span class="l">Federal minimum wage, unchanged since July 24, 2009 — the longest freeze since it was created in 1938.</span>
+    <span class="src">U.S. DOL / CEPR</span>
+  </div>
+  <div class="tile">
+    <span class="v">5.9%</span>
+    <span class="l">Private-sector union membership in 2025. It was roughly one in three in the mid-1950s.</span>
+    <span class="src">BLS</span>
+  </div>
+  <div class="tile">
+    <span class="v">~$1T</span>
+    <span class="l">S&amp;P 500 stock buybacks in 2025 — a record year ($777B confirmed through Q3 alone). Before 1982 the practice carried manipulation liability.</span>
+    <span class="src">S&amp;P Dow Jones Indices</span>
+  </div>
+  <div class="tile">
+    <span class="v">$1T</span>
+    <span class="l">Elon Musk's net worth on June 12, 2026 — the first trillionaire in human history. He slipped back below it within two weeks.</span>
+    <span class="src">Forbes</span>
+  </div>
+</div>
+
+<div class="callout">
+  <p><strong>The question this document answers:</strong> the money didn't vanish. It was redirected — into corporate profits, share buybacks, executive compensation, and private fortunes. That redirection required changes to the law. Those changes have dates, sponsors, roll-call votes, and signatures. What follows is the receipt.</p>
+</div>
+
+<h2>II. Pillar A — Rewriting the tax code</h2>
+
+<p>The mechanism is simple: lower the top rates, and tax money made from owning things at a lower rate than money made from working. Over forty years the top marginal income tax rate fell from 91% to 37%, and the long-term capital gains rate fell to roughly half the top wage rate — which is why a billionaire whose income arrives as appreciated stock can face a lower effective rate than the nurse who cleans up after him.</p>
+
+<p><strong>Note the reversal, because it is the whole argument in one fact.</strong> From 1972 to 1981, the tax code capped the rate on <em>earned</em> income — wages and salary — at 50%, while <em>unearned</em> income faced 70%. Working was taxed less than owning. Today it is precisely inverted: the top rate on wages is 37%, and the top rate on long-term capital gains is 20%. The code did not drift. It was turned around.</p>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Year</th><th>Law</th><th>What it did</th><th>President</th><th>House</th><th>Senate</th><th>Final vote</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="yr">1964</td>
+      <td>Revenue Act of 1964</td>
+      <td>Top marginal rate 91% → 70%</td>
+      <td>Johnson <span class="D">(D)</span></td>
+      <td class="D">D</td><td class="D">D</td>
+      <td class="vote">H 326–83<br>S 74–19</td>
+    </tr>
+    <tr>
+      <td class="yr">1981</td>
+      <td>Economic Recovery Tax Act</td>
+      <td>Top rate 70% → 50%; the opening move of supply-side tax policy</td>
+      <td>Reagan <span class="R">(R)</span></td>
+      <td class="D">D</td><td class="R">R</td>
+      <td class="vote">H 282–95<br>S 67–8 (conf.)</td>
+    </tr>
+    <tr>
+      <td class="yr">1986</td>
+      <td>Tax Reform Act of 1986</td>
+      <td>Top rate 50% → 28%. Notably, it <em>equalized</em> capital gains with wage income — the one reform that cut the other way, and it did not last.</td>
+      <td>Reagan <span class="R">(R)</span></td>
+      <td class="D">D</td><td class="R">R</td>
+      <td class="vote">H 292–136<br>S 74–23</td>
+    </tr>
+    <tr>
+      <td class="yr">1993</td>
+      <td>Omnibus Budget Reconciliation Act</td>
+      <td>Top rate 31% → 39.6%. Also created §162(m), capping the deductibility of executive salary at $1M — but exempting "performance-based" pay, which detonated the stock-option era.</td>
+      <td>Clinton <span class="D">(D)</span></td>
+      <td class="D">D</td><td class="D">D</td>
+      <td class="vote">H 218–216<br>S 51–50 (Gore)<br><em>zero R votes</em></td>
+    </tr>
+    <tr>
+      <td class="yr">1997</td>
+      <td>Taxpayer Relief Act</td>
+      <td>Capital gains 28% → 20%. The wage/capital gap reopens.</td>
+      <td>Clinton <span class="D">(D)</span></td>
+      <td class="R">R</td><td class="R">R</td>
+      <td class="vote">H 389–43<br>S 92–8</td>
+    </tr>
+    <tr>
+      <td class="yr">2001</td>
+      <td>EGTRRA</td>
+      <td>Top rate 39.6% → 35%, phased. Passed by budget reconciliation.</td>
+      <td>Bush 43 <span class="R">(R)</span></td>
+      <td class="R">R</td><td class="R">R</td>
+      <td class="vote">H 240–154<br>S 58–33</td>
+    </tr>
+    <tr>
+      <td class="yr">2003</td>
+      <td>JGTRRA</td>
+      <td>Capital gains 20% → 15%; dividends taxed at capital-gains rates for the first time. Reconciliation again.</td>
+      <td>Bush 43 <span class="R">(R)</span></td>
+      <td class="R">R</td><td class="R">R</td>
+      <td class="vote">H 231–200<br>S 51–50 (Cheney)</td>
+    </tr>
+    <tr>
+      <td class="yr">2012</td>
+      <td>American Taxpayer Relief Act</td>
+      <td>Made most Bush-era rates permanent; top rate back to 39.6%, capital gains to 20% at the very top.</td>
+      <td>Obama <span class="D">(D)</span></td>
+      <td class="R">R</td><td class="D">D</td>
+      <td class="vote">H 257–167<br>S 89–8</td>
+    </tr>
+    <tr>
+      <td class="yr">2017</td>
+      <td>Tax Cuts and Jobs Act</td>
+      <td>Corporate rate 35% → <strong>21%, permanent</strong>. Top individual rate 39.6% → 37%, temporary. Reconciliation.</td>
+      <td>Trump <span class="R">(R)</span></td>
+      <td class="R">R</td><td class="R">R</td>
+      <td class="vote">H 224–201<br>S 51–48<br><em>zero D votes</em></td>
+    </tr>
+    <tr>
+      <td class="yr">2025</td>
+      <td>One Big Beautiful Bill Act<br>(P.L. 119-21)</td>
+      <td>Made the 37% top rate permanent; left the 21% corporate rate untouched; raised the estate-tax exemption to $15M per person / $30M per couple, permanently.</td>
+      <td>Trump <span class="R">(R)</span></td>
+      <td class="R">R</td><td class="R">R</td>
+      <td class="vote">H 218–214<br>S 51–50 (Vance)<br><em>zero D votes</em></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h4>The carried interest loophole: four chances to close it, four survivals</h4>
+<p>Carried interest lets private equity and hedge fund managers treat their fee income as capital gains, taxed at roughly half the rate of the wages earned by the people who work at the companies they buy. It survived the 1986 reform. It survived the 2017 TCJA, which merely stretched the required holding period from one year to three. It survived the 2021 Build Back Better negotiations, and in <strong>August 2022</strong> the provision that would have narrowed it was stripped from the Inflation Reduction Act at the demand of a single senator — <strong>Kyrsten Sinema (D-AZ)</strong> — as the price of her vote.</p>
+
+<h2>III. Pillar B — Breaking labor's bargaining power</h2>
+
+<p>A worker's wage is set by leverage. Every mechanism that gave American workers leverage — sectoral unions, the strike, a wage floor indexed to living costs, the right to sue as a group — has been narrowed, one statute and one court decision at a time.</p>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Year</th><th>Action</th><th>Effect</th><th>President</th><th>House</th><th>Senate</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="yr">1947</td>
+      <td>Taft-Hartley Act</td>
+      <td>Banned secondary boycotts and mass picketing; §14(b) authorized state "right-to-work" laws — the legal engine of union decline.</td>
+      <td>Truman <span class="D">(D)</span><br><em>vetoed</em></td>
+      <td class="R">R</td><td class="R">R</td>
+      <td class="vote">Override:<br>H 331–83<br>S 68–25</td>
+    </tr>
+    <tr>
+      <td class="yr">1978</td>
+      <td>Labor Law Reform Act — <em>failed</em></td>
+      <td>Would have strengthened penalties for illegal union-busting. Died on a six-vote filibuster; best cloture result was 58, two short.</td>
+      <td>Carter <span class="D">(D)</span></td>
+      <td class="D">D</td><td class="D">D</td>
+      <td class="vote">Filibustered<br>(Hatch, Lugar)</td>
+    </tr>
+    <tr>
+      <td class="yr">1981</td>
+      <td>PATCO firings</td>
+      <td>11,345 striking air traffic controllers fired and permanently barred. Executive action, not legislation — and the signal that broke the strike as a tool.</td>
+      <td>Reagan <span class="R">(R)</span></td>
+      <td class="D">D</td><td class="R">R</td>
+      <td class="vote">Executive</td>
+    </tr>
+    <tr>
+      <td class="yr">2007</td>
+      <td>Fair Minimum Wage Act</td>
+      <td>Raised the floor to $7.25 effective July 24, 2009. It has not moved since — 17 years, the longest freeze in the wage's history, and its lowest real value in roughly seven decades.</td>
+      <td>Bush 43 <span class="R">(R)</span></td>
+      <td class="D">D</td><td class="D">D</td>
+      <td class="vote">H 348–73<br>S 80–14</td>
+    </tr>
+    <tr>
+      <td class="yr">2009-10</td>
+      <td>Employee Free Choice Act — <em>failed</em></td>
+      <td>Card-check organizing. It had passed the House in 2007 and died to a Senate filibuster. Reintroduced in 2009 with Democrats holding the White House, the House, and briefly 60 Senate seats, it never received a floor vote in either chamber.</td>
+      <td>Obama <span class="D">(D)</span></td>
+      <td class="D">D</td><td class="D">D</td>
+      <td class="vote">Never voted</td>
+    </tr>
+    <tr>
+      <td class="yr">2018</td>
+      <td><em>Epic Systems v. Lewis</em></td>
+      <td>Employers may force workers into individual arbitration and ban collective legal action. 5–4.</td>
+      <td colspan="3">Supreme Court — see the bench table below</td>
+      <td class="vote">5–4</td>
+    </tr>
+    <tr>
+      <td class="yr">2018</td>
+      <td><em>Janus v. AFSCME</em></td>
+      <td>Public-sector unions may not collect fees from the workers they are legally required to represent. 5–4.</td>
+      <td colspan="3">Supreme Court — see the bench table below</td>
+      <td class="vote">5–4</td>
+    </tr>
+    <tr>
+      <td class="yr">2021</td>
+      <td>PRO Act — <em>failed</em></td>
+      <td>Would have overridden state right-to-work laws. Passed the House 225–206; never received a Senate floor vote.</td>
+      <td>Biden <span class="D">(D)</span></td>
+      <td class="D">D</td><td class="D">D (50-50)</td>
+      <td class="vote">Died in Senate</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout">
+  <p><strong>The result:</strong> private-sector union membership fell from roughly one in three workers in the mid-1950s to <strong>5.9% in 2025</strong>. And the federal minimum wage — $7.25 — has now been frozen across four presidential terms and nine Congresses. Refusing to act for seventeen consecutive years is not a failure to legislate. It is a legislative outcome.</p>
+</div>
+
+<h2>IV. Pillar C — Financialization and the end of antitrust</h2>
+
+<h4>1982: the year buying your own stock stopped being manipulation</h4>
+<p>Before November 1982, a corporation buying its own shares on the open market exposed itself to manipulation liability under the securities laws, and companies largely stayed away. Then <strong>SEC Rule 10b-18</strong> created a safe harbor: follow four conditions on timing, price, volume and broker, and the SEC would not treat the repurchase as manipulation. This was not an act of Congress — it was a rule adopted by a commission whose chairman, <strong>John Shad</strong>, had been appointed by <strong>Ronald Reagan (R)</strong> the year before. Shad came to the job as vice chairman of E.F. Hutton, the first Wall Street executive to run the SEC since 1935, and had chaired Reagan's New York fundraising.</p>
+<p>In 2025, S&amp;P 500 companies spent roughly <strong>$1 trillion</strong> buying back their own shares — a record, and more than $777 billion of it confirmed in the first three quarters alone. That is capital that did not go to wages, prices, or domestic investment. It went to shareholders — and the wealthiest 10% of households own the overwhelming majority of American stock. Combined with the 1993 §162(m) loophole that pushed executive pay into options and shares, this created a direct incentive for management to route company cash into the share price rather than the payroll.</p>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Year</th><th>Action</th><th>What it did</th><th>President</th><th>House</th><th>Senate</th><th>Vote</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="yr">1977-79</td>
+      <td><em>GTE Sylvania</em>; <em>Reiter v. Sonotone</em></td>
+      <td>The Supreme Court adopts the "consumer welfare" standard. <em>Reiter</em> supplies the line — quoting Robert Bork — that Congress designed the Sherman Act as a "consumer welfare prescription." Antitrust stops asking whether concentrated power is dangerous and starts asking only whether prices went up.</td>
+      <td colspan="3">Supreme Court (authors: Powell and Burger, both <span class="R">Nixon</span> appointees)</td>
+      <td class="vote">6–2; 8–0</td>
+    </tr>
+    <tr>
+      <td class="yr">1982</td>
+      <td>SEC Rule 10b-18</td>
+      <td>Safe harbor for stock buybacks.</td>
+      <td>Reagan <span class="R">(R)</span></td>
+      <td colspan="2">SEC rulemaking — Chairman John Shad (Reagan appointee)</td>
+      <td class="vote">Regulatory</td>
+    </tr>
+    <tr>
+      <td class="yr">1982</td>
+      <td>DOJ Merger Guidelines</td>
+      <td>William Baxter, Reagan's antitrust chief, rewrites merger review around the consumer-welfare framework. Four decades of consolidation follow across healthcare, media, airlines, groceries, and tech — fewer employers bidding for the same workers.</td>
+      <td>Reagan <span class="R">(R)</span></td>
+      <td colspan="2">Executive branch</td>
+      <td class="vote">Regulatory</td>
+    </tr>
+    <tr>
+      <td class="yr">1999</td>
+      <td>Gramm-Leach-Bliley Act</td>
+      <td>Repealed Glass-Steagall's separation of commercial and investment banking.</td>
+      <td>Clinton <span class="D">(D)</span></td>
+      <td class="R">R</td><td class="R">R</td>
+      <td class="vote">H 362–57<br>S 90–8</td>
+    </tr>
+    <tr>
+      <td class="yr">2000</td>
+      <td>Commodity Futures Modernization Act</td>
+      <td>Exempted over-the-counter derivatives and credit default swaps from CFTC and most SEC oversight. Never got a standalone vote — it was folded into a year-end omnibus appropriations bill and passed the Senate by unanimous consent.</td>
+      <td>Clinton <span class="D">(D)</span></td>
+      <td class="R">R</td><td class="R">R</td>
+      <td class="vote">No separate<br>recorded vote</td>
+    </tr>
+    <tr>
+      <td class="yr">2005</td>
+      <td>BAPCPA</td>
+      <td>Made private student loans non-dischargeable in bankruptcy — debt that follows a person to the grave, on an asset that can't be repossessed.</td>
+      <td>Bush 43 <span class="R">(R)</span></td>
+      <td class="R">R</td><td class="R">R</td>
+      <td class="vote">H 302–126<br>S 74–25</td>
+    </tr>
+    <tr>
+      <td class="yr">2008</td>
+      <td>TARP</td>
+      <td>$700B to stabilize the banks. Nearly 10 million families lost homes to foreclosure over the following years. Exactly one banker went to prison for crisis-related conduct — Kareem Serageldin of Credit Suisse, 30 months. No chief executive of any major U.S. bank was charged.</td>
+      <td>Bush 43 <span class="R">(R)</span></td>
+      <td class="D">D</td><td class="D">D</td>
+      <td class="vote">H 263–171<br>S 74–25</td>
+    </tr>
+    <tr>
+      <td class="yr">2010</td>
+      <td>Dodd-Frank Act</td>
+      <td>The corrective — capital rules, the CFPB, derivatives clearing.</td>
+      <td>Obama <span class="D">(D)</span></td>
+      <td class="D">D</td><td class="D">D</td>
+      <td class="vote">H 237–192<br>S 60–39</td>
+    </tr>
+    <tr>
+      <td class="yr">2018</td>
+      <td>S.2155 (EGRRCPA)</td>
+      <td>Rolled back Dodd-Frank: raised the "systemically important" threshold from $50B to $250B in assets. Sixteen Democrats plus one independent supplied the margin.</td>
+      <td>Trump <span class="R">(R)</span></td>
+      <td class="R">R</td><td class="R">R</td>
+      <td class="vote">H 258–159<br>S 67–31</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>V. Pillar D — Money in politics</h2>
+
+<p>This is the pillar that holds up the other three. Each of the changes above had to survive an election. The rules governing whether they could be punished at the ballot box were rewritten mostly by courts — which means the relevant question is not who voted, but who appointed.</p>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Year</th><th>Case</th><th>Holding</th><th>Majority (appointed by)</th><th>Dissent (appointed by)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="yr">1976</td>
+      <td><em>Buckley v. Valeo</em></td>
+      <td>Struck limits on campaign <em>expenditures</em> as a First Amendment burden, while upholding limits on contributions. The foundation of everything after.</td>
+      <td>Per curiam. Bench: Burger, Blackmun, Powell, Rehnquist <span class="R">(Nixon)</span>; Brennan, Stewart <span class="R">(Eisenhower)</span>; White <span class="D">(Kennedy)</span>; Marshall <span class="D">(Johnson)</span></td>
+      <td>Five justices dissented in part</td>
+    </tr>
+    <tr>
+      <td class="yr">1978</td>
+      <td><em>First National Bank of Boston v. Bellotti</em></td>
+      <td>Corporations have a First Amendment right to spend on ballot measures. 5–4.</td>
+      <td>Powell, Burger, Blackmun <span class="R">(Nixon)</span>; Stewart <span class="R">(Eisenhower)</span>; Stevens <span class="R">(Ford)</span></td>
+      <td>White <span class="D">(Kennedy)</span>; Brennan <span class="R">(Eisenhower)</span>; Marshall <span class="D">(Johnson)</span>; Rehnquist <span class="R">(Nixon)</span></td>
+    </tr>
+    <tr>
+      <td class="yr">2010</td>
+      <td><em>Citizens United v. FEC</em><br>Jan 21, 2010</td>
+      <td>Corporations and unions may spend unlimited sums on independent political expenditures. 5–4.</td>
+      <td>Kennedy, Scalia <span class="R">(Reagan)</span>; Roberts, Alito <span class="R">(G.W. Bush)</span>; Thomas <span class="R">(G.H.W. Bush)</span></td>
+      <td>Stevens <span class="R">(Ford)</span>; Ginsburg, Breyer <span class="D">(Clinton)</span>; Sotomayor <span class="D">(Obama)</span></td>
+    </tr>
+    <tr>
+      <td class="yr">2010</td>
+      <td><em>SpeechNow.org v. FEC</em><br>D.C. Circuit, en banc</td>
+      <td><strong>The ruling that actually created Super PACs.</strong> Contributions to independent-expenditure-only committees cannot be capped. Unanimous, 9–0.</td>
+      <td>Sentelle, D. Ginsburg <span class="R">(Reagan)</span>; Henderson <span class="R">(G.H.W. Bush)</span>; Brown, Griffith, Kavanaugh <span class="R">(G.W. Bush)</span>; Rogers, Tatel, Garland <span class="D">(Clinton)</span></td>
+      <td>None — the three Democratic appointees joined in full</td>
+    </tr>
+    <tr>
+      <td class="yr">2014</td>
+      <td><em>McCutcheon v. FEC</em></td>
+      <td>Struck aggregate limits on what one donor may give across all federal candidates. 5–4.</td>
+      <td>Roberts, Alito <span class="R">(G.W. Bush)</span>; Scalia, Kennedy <span class="R">(Reagan)</span>; Thomas <span class="R">(G.H.W. Bush)</span>, concurring in judgment</td>
+      <td>Breyer, Ginsburg <span class="D">(Clinton)</span>; Sotomayor, Kagan <span class="D">(Obama)</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Congress's role here was largely one of omission. It passed McCain-Feingold in 2002; after <em>Citizens United</em> gutted it, no replacement disclosure regime — the DISCLOSE Act and its successors — has ever cleared the Senate. And Congress has never meaningfully restricted its own members from trading the stocks of the industries they regulate.</p>
+
+<h2>VI. The scoreboard</h2>
+
+<p>If you want this argument to survive contact with someone who knows the history, do not tell it as a story about one party. Tell it accurately, because accurate is more damning:</p>
+
+<h4>Where Republicans own it outright</h4>
+<ul>
+  <li>Every top-rate cut since 1980 — 1981, 1986, 2001, 2003, 2017 — was signed by a Republican president, and the 2025 bill made the lowest of them permanent. (The one big exception runs the other way in time, not in party: the 91%-to-70% cut of 1964 was Johnson's.)</li>
+  <li>The 2017 corporate cut from 35% to 21% and the 2025 permanence bill both passed by reconciliation with <strong>zero Democratic votes</strong>.</li>
+  <li>Taft-Hartley, over a Democratic president's veto, by a Republican Congress.</li>
+  <li>Rule 10b-18, the PATCO firings, and the antitrust retreat — all Reagan-era executive and regulatory acts.</li>
+  <li>Every justice in the <em>Citizens United</em>, <em>McCutcheon</em>, <em>Janus</em>, and <em>Epic Systems</em> majorities was appointed by a Republican president.</li>
+</ul>
+
+<h4>Where Democrats are implicated</h4>
+<ul>
+  <li><strong>Bill Clinton signed all three</strong> of the biggest financial-deregulation and capital-gains bills — the 1997 capital gains cut, Gramm-Leach-Bliley in 1999, and the derivatives exemption in 2000 — each passed by a Republican Congress, each with large bipartisan majorities. Gramm-Leach-Bliley cleared the Senate 90–8.</li>
+  <li><strong>§162(m)</strong>, the executive-pay provision that supercharged stock-option compensation, was a 1993 Democratic bill signed by a Democratic president.</li>
+  <li>Labor law reform failed in <strong>1978 and 2009–10 under Democratic trifectas</strong>. The Employee Free Choice Act, having already died to a filibuster in 2007, never got a floor vote in either chamber once Democrats actually held both.</li>
+  <li>Sixteen Senate Democrats supplied the margin to roll back Dodd-Frank in 2018.</li>
+  <li>The 2022 carried-interest fix was killed by a Democratic senator.</li>
+</ul>
+
+<div class="verdict">
+  <h3>The honest conclusion</h3>
+  <p>One party drove. The other, often enough, declined to take the wheel — and sometimes held the door. The consistent through-line across eight decades is not Republican versus Democrat. It is <strong>capital versus labor</strong>, and capital has an unbroken winning streak because it funds both campaigns.</p>
+  <p>That is why the argument matters more than the partisanship. The people telling you that your problem is DoorDash and iced coffee are not confused about the data. They are pointing at your grocery receipt so you don't read the roll call.</p>
+</div>
+
+<h2>VII. The sixty-second version</h2>
+
+<p>If you only have a minute, this is the whole thing:</p>
+
+<ol>
+  <li>From 1945 to 1979, pay tracked productivity. Since 1979, productivity is up 93% and typical pay is up 34%. That gap is the theft, and it's measurable.</li>
+  <li>Congress cut the top tax rate from 91% to 37%, and taxed money made from owning at roughly half the rate of money made from working.</li>
+  <li>Congress froze the minimum wage at $7.25 for seventeen years and let every labor-law reform die — including under its own majorities.</li>
+  <li>Reagan's SEC legalized stock buybacks in 1982. Last year they hit a trillion dollars — money that could have been wages.</li>
+  <li>Congress repealed Glass-Steagall in 1999 and exempted derivatives in 2000. The 2008 crash followed. Congress bailed out the banks, not the ten million families who lost their homes. One banker went to prison. He was a managing director at Credit Suisse, not the CEO of anything.</li>
+  <li>Five Republican-appointed justices then made it legal for the winners of steps 2 through 5 to spend unlimited money keeping steps 2 through 5 in place.</li>
+</ol>
+
+<p>And in June 2026, one man became worth a trillion dollars. If you had earned a million dollars a day, every day, since the birth of Christ, you still wouldn't have that much. He did not get there by skipping brunch, and nobody is broke because they didn't.</p>
+
+<h2>VIII. What they will hit you with</h2>
+
+<p>Every claim above is sourced, but four counterarguments come up constantly. Know them cold, because being caught flat-footed on a technicality is how a true argument loses a room.</p>
+
+<h4>"The productivity–pay gap disappears if you count benefits."</h4>
+<p>It shrinks; it does not disappear. Total compensation including employer-paid health premiums has grown faster than wages alone. But that is not the defense it sounds like: it means a large share of the raise American workers earned was absorbed by health insurance premiums rising far faster than inflation. The money went to a hospital system and an insurer instead of a bank account. Workers still cannot spend it on rent.</p>
+
+<h4>"Housing is a supply and zoning problem, not a billionaire problem."</h4>
+<p>Supply is real and it is a genuine constraint — the country underbuilt for fifteen years after 2008. But zoning is written by people who run for office, and the same tax treatment that makes housing an attractive store of wealth for capital is federal law. Concede the supply point and keep going: restricted supply and financialized demand are the same story told from two ends.</p>
+
+<h4>"The 1964 tax cut was a Democrat, and Clinton signed the deregulation."</h4>
+<p>Correct on both counts, which is why they are in the scoreboard above. This argument is not improved by pretending one party is clean. It is improved by pointing out that capital won under both.</p>
+
+<h4>"Living standards are objectively higher — people have more stuff."</h4>
+<p>True, and irrelevant to the claim. Consumer electronics got cheaper because of global manufacturing and Moore's law. The four things that determine whether a life is stable — housing, healthcare, higher education, and childcare — all got dramatically more expensive relative to income over the same period. A flat-screen television is cheap. A place to put it is not.</p>
+
+<h2>Sources</h2>
+<ul class="sources">
+  <li>Economic Policy Institute — <a href="https://www.epi.org/productivity-pay-gap/">The Productivity–Pay Gap</a> (through Q1 2026)</li>
+  <li>Economic Policy Institute — <a href="https://www.epi.org/blog/ceo-pay-increased-in-2024-and-is-now-281-times-that-of-the-typical-worker-new-epi-landing-page-has-all-the-details/">CEO pay, 281× the typical worker</a></li>
+  <li>Federal Reserve / FRED — <a href="https://fred.stlouisfed.org/series/WFRBST01134">Net worth held by the top 1%</a> and <a href="https://fred.stlouisfed.org/series/WFRBSB50215">by the bottom 50%</a>, Q1 2026</li>
+  <li>Harvard Joint Center for Housing Studies — <a href="https://www.jchs.harvard.edu/son-2026-price-to-income-map">State of the Nation's Housing 2026, price-to-income</a> and <a href="https://www.jchs.harvard.edu/blog/home-price-income-ratio-reaches-record-high-0">the 2022 record high of 5.6</a></li>
+  <li>CEPR — <a href="https://cepr.net/publications/the-federal-minimum-wage-hits-a-seven-decade-low/">17 years without a federal minimum wage increase</a></li>
+  <li>Bureau of Labor Statistics — <a href="https://www.bls.gov/opub/ted/2026/union-membership-rate-10-0-percent-in-2025.htm">Union membership rate, 2025</a></li>
+  <li>S&amp;P Dow Jones Indices — <a href="https://www.prnewswire.com/news-releases/sp-500-q3-2025-buybacks-post-modest-6-2-gain-to-249-0-billion-after-declining-20-1-amidst-uncertainty-in-q2-q4-2025-expenditures-expected-to-post-similar-growth-as-2025-anticipates-a-record-1-trillion-302645583.html">S&amp;P 500 buybacks approach $1 trillion in 2025</a></li>
+  <li>Forbes — <a href="https://www.forbes.com/sites/pr/2026/06/12/forbes-declares-elon-musk-as-the-worlds-first-trillionaire/">The world's first trillionaire</a>, June 2026</li>
+  <li>William Lazonick / Brookings — <a href="https://www.brookings.edu/wp-content/uploads/2016/06/lazonick.pdf">Stock buybacks and SEC Rule 10b-18</a></li>
+  <li>U.S. Senate — <a href="https://www.senate.gov/history/partydiv.htm">Party division by Congress</a>; <a href="https://history.house.gov/Congressional-Overview/Profiles/80th/">House historical profiles</a></li>
+  <li>Supreme Court opinions via Justia — <a href="https://supreme.justia.com/cases/federal/us/558/310/">Citizens United</a>, <a href="https://supreme.justia.com/cases/federal/us/572/185/">McCutcheon</a>, <a href="https://supreme.justia.com/cases/federal/us/424/1/">Buckley</a>, <a href="https://supreme.justia.com/cases/federal/us/435/765/">Bellotti</a>; <a href="https://www.fec.gov/legal-resources/court-cases/speechnoworg-v-fec">SpeechNow.org v. FEC</a> (FEC)</li>
+  <li>Congressional Research Service — <a href="https://www.congress.gov/crs-product/R48631">Marginal effective tax rates under P.L. 119-21</a></li>
+</ul>
+
+<footer>
+  Compiled August 2026. Dates, roll-call vote counts, party-control designations and court lineups were checked against congressional roll-call records, House and Senate historical archives, and published opinions, then re-checked in a second independent pass. Where a figure is an estimate or a projection — foreclosure totals, full-year 2025 buybacks, mid-century union density — it is flagged as such in the text. One vote-count note: the 2007 minimum wage increase rode on H.R. 2206, a supplemental appropriations bill; the House figure cited (348–73) is the vote on the domestic division that carried the wage increase, not the 280–142 vote on the war-funding division of the same bill.
+</footer>
+
+</div>
+</body>
+</html>
